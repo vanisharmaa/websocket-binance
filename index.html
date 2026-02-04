@@ -5,11 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Binance Websocket</title>
     <script>
-      const ws = new WebSocket(
-        process.env.MODE === "local"
-          ? `ws://localhost:${Number(process.env.PORT) || 8080}/`
-          : process.env.URL,
-      );
+      const isLocal =
+        location.hostname === "localhost" || location.hostname === "127.0.0.1";
+      const WS_URL = isLocal
+        ? "ws://localhost:8080"
+        : "wss://websocket-binance.onrender.com";
+      const ws = new WebSocket(WS_URL);
       ws.onmessage = (e) => {
         // The data is per troy ounce. 1 troy ounce * 32.1507 = 1 kg
         const data = JSON.parse(e.data).price;
