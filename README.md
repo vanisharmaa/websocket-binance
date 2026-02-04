@@ -2,7 +2,7 @@
 
 A minimal real-time WebSocket project built to understand how live data flows from an external source to a browser.
 
----
+[Live Demo](https://vanisharmaa.github.io/websocket-binance)
 
 ## What this project does
 
