@@ -1,8 +1,12 @@
 import WebSocket, { WebSocketServer } from "ws";
+import "dotenv/config";
+
+const PORT = Number(process.env.PORT) || 8080;
+const BINANCE_WS_URL = process.env.BINANCE_WS_URL!;
 
 const wss = new WebSocketServer(
   {
-    port: 8080,
+    port: PORT,
   },
   () => {
     console.log("here 1");
@@ -10,9 +14,8 @@ const wss = new WebSocketServer(
 );
 
 let latestPrice = null;
-const BINANCE_SILVER_URI = "wss://fstream.binance.com/ws/xagusdt@trade";
 
-const ws = new WebSocket(BINANCE_SILVER_URI);
+const ws = new WebSocket(BINANCE_WS_URL);
 
 ws.on("open", () => {
   console.log("connection to Binance made hehe");
