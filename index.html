@@ -7,9 +7,11 @@
     <script>
       const isLocal =
         location.hostname === "localhost" || location.hostname === "127.0.0.1";
-      const WS_URL = isLocal
-        ? "ws://localhost:8080"
-        : "wss://websocket-binance.onrender.com";
+      const WS_URL =
+        location.protocol === "https:"
+          ? "wss://websocket-binance.onrender.com"
+          : "ws://localhost:8080";
+
       const ws = new WebSocket(WS_URL);
       ws.onmessage = (e) => {
         // The data is per troy ounce. 1 troy ounce * 32.1507 = 1 kg
