@@ -6,7 +6,9 @@
     <title>Binance Websocket</title>
     <script>
       const ws = new WebSocket(
-        `ws://localhost:${Number(process.env.PORT) || 8080}/`,
+        process.env.MODE === "local"
+          ? `ws://localhost:${Number(process.env.PORT) || 8080}/`
+          : process.env.URL,
       );
       ws.onmessage = (e) => {
         // The data is per troy ounce. 1 troy ounce * 32.1507 = 1 kg
