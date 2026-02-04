@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Binance Websocket</title>
+    <script>
+      const ws = new WebSocket("ws://localhost:8080/");
+      ws.onmessage = (e) => {
+        // The data is per troy ounce. 1 troy ounce * 32.1507 = 1 kg
+        const data = JSON.parse(e.data).price;
+        const TROY_OUNCE_TO_KG = 32.1507;
+        const usdPrice = document.getElementById("usd-price");
+        usdPrice.innerText = `\$${Math.round(data * TROY_OUNCE_TO_KG)}`;
+        const USD_TO_INR = 90.4; // find if you can update this in live time
+        const inrPrice = document.getElementById("inr-price");
+        inrPrice.innerText = `\₹${Math.round(data * USD_TO_INR * TROY_OUNCE_TO_KG)}`;
+      };
+    </script>
+  </head>
+  <body
+    style="
+      font-family: &quot;Segoe UI&quot;, Tahoma, Geneva, Verdana, sans-serif;
+    "
+  >
+    <h1>Silver prices (round fig) per kg:</h1>
+    <h2>USD $$$</h2>
+    <p id="usd-price">Loading...</p>
+    <h2>INR ₹₹₹</h2>
+    <p id="inr-price">Loading...</p>
+  </body>
+</html>
